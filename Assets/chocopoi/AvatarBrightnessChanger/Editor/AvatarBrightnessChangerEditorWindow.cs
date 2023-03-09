@@ -36,7 +36,7 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
         return prefix + path + suffix;
     }
 
-    private void Generate()
+    private void GenerateMinLight()
     {
         if (avatar == null)
         {
@@ -59,7 +59,39 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
             }
         }
 
-        AssetDatabase.CreateAsset(clip, "Assets/chocopoi/LiltoonBrightnessChanger/test.anim");
+        AssetDatabase.CreateAsset(clip, "Assets/chocopoi/LiltoonBrightnessChanger/Minbrightness.anim");
+        AssetDatabase.SaveAssets();
+
+        MeshRenderer[] mrs = avatar.GetComponentsInChildren<MeshRenderer>(true);
+        foreach (MeshRenderer mr in mrs)
+        {
+        }
+    }
+
+    private void GenerateMonochromatic()
+    {
+        if (avatar == null)
+        {
+            return;
+        }
+
+        AnimationClip clip = new AnimationClip();
+
+        SkinnedMeshRenderer[] smrs = avatar.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+        foreach (SkinnedMeshRenderer smr in smrs)
+        {
+            Material[] ms = smr.sharedMaterials;
+            for (int i = 0; i < ms.Length; i++)
+            {
+                if (ms[i].shader.name.Contains("lilToon"))
+                {
+                    Debug.Log("Adding " + ms[i].shader.name);
+                    clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._MonochromeLighting", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
+                }
+            }
+        }
+
+        AssetDatabase.CreateAsset(clip, "Assets/chocopoi/LiltoonBrightnessChanger/monochromatic.anim");
         AssetDatabase.SaveAssets();
 
         MeshRenderer[] mrs = avatar.GetComponentsInChildren<MeshRenderer>(true);
@@ -72,9 +104,15 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
     {
         avatar = (VRC.SDK3.Avatars.Components.VRCAvatarDescriptor) EditorGUILayout.ObjectField("Avatar", avatar, typeof(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor), true);
 
-        if (GUILayout.Button("Generate Animation"))
+        if (GUILayout.Button("Generate Min Light"))
         {
-            Generate();
+            GenerateMinLight();
         }
+
+        if (GUILayout.Button("Generate Monochromatic Light"))
+        {
+            GenerateMonochromatic();
+        }
+
     }
 }
