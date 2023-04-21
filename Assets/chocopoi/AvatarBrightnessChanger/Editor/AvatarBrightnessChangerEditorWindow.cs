@@ -59,7 +59,7 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
                 else if (ms[i].shader.name.Contains(".poiyomi"))
                 {
                     Debug.Log("Adding Poiyomi " + ms[i].shader.name);
-                    clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._LightMinLimit", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
+                    clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._LightingMinLightBrightness", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
                 }
                 else if (ms[i].shader.name.Contains("Rhy"))
                 {
