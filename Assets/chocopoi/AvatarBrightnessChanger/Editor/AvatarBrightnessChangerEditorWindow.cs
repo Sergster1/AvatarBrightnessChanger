@@ -61,6 +61,11 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
                     Debug.Log("Adding Poiyomi " + ms[i].shader.name);
                     clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._LightMinLimit", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
                 }
+                else if (ms[i].shader.name.Contains("Rhy"))
+                {
+                    Debug.Log("Adding Rhy " + ms[i].shader.name);
+                    clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._ClampMin", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
+                }
 
             }
         }
@@ -99,6 +104,11 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
                     Debug.Log("Adding Poiyomi " + ms[i].shader.name);
                     clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._LightingMonochromatic", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
                 }
+                //else if (ms[i].shader.name.Contains("Rhy")) //waiting on rhy to implementgrayscale lighting
+                //{
+                //    Debug.Log("Adding Rhy " + ms[i].shader.name);
+                //    clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material.<insert property here>", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
+                //}
             }
         }
 
