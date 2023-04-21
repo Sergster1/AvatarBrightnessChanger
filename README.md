@@ -1,6 +1,8 @@
 # AvatarBrightnessChanger
 
-A simple animation + expression menu generator to adjust avatar brightness of various shaders including Liltoon, Poiyomi
+A simple animation + expression menu generator to adjust avatar brightness of various shaders including Liltoon, Poiyomi, and Rhyperior's Shader
+
+Note: Please relocate the created animation files once generated to avoid them being overwritten. This will be fixed in a future release(tm)
 
 ## License
 
