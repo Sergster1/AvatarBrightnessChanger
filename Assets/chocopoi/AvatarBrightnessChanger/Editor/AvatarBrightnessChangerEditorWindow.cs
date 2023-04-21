@@ -56,6 +56,12 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
                     Debug.Log("Adding " + ms[i].shader.name);
                     clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._LightMinLimit", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
                 }
+                else if (ms[i].shader.name.Contains(".poiyomi"))
+                {
+                    Debug.Log("Adding Poiyomi " + ms[i].shader.name);
+                    clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._LightMinLimit", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
+                }
+
             }
         }
 
@@ -87,6 +93,11 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
                 {
                     Debug.Log("Adding " + ms[i].shader.name);
                     clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._MonochromeLighting", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
+                }
+                else if (ms[i].shader.name.Contains(".poiyomi"))
+                {
+                    Debug.Log("Adding Poiyomi " + ms[i].shader.name);
+                    clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._LightingMonochromatic", AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f));
                 }
             }
         }
