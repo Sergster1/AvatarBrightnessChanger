@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -121,6 +121,38 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
         }
     }
 
+private void GenerateAOToggle()
+    {
+        if (avatar == null)
+        {
+            return;
+        }
+
+        AnimationClip clip = new AnimationClip();
+
+        SkinnedMeshRenderer[] smrs = avatar.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+        foreach (SkinnedMeshRenderer smr in smrs)
+        {
+            Material[] ms = smr.sharedMaterials;
+            for (int i = 0; i < ms.Length; i++)
+            {
+				if (ms[i].shader.name.Contains(".poiyomi"))
+					{
+						Debug.Log("Adding Poiyomi " + ms[i].shader.name);
+						clip.SetCurve(GetGameObjectPath(smr.transform), typeof(SkinnedMeshRenderer), "material._SSAOAnimationToggle", AnimationCurve.Constant(0.0f, 1.0f, 1.0f));
+					}
+             
+            }
+        }
+
+        AssetDatabase.CreateAsset(clip, "Assets/chocopoi/LiltoonBrightnessChanger/AOToggle.anim");
+        AssetDatabase.SaveAssets();
+
+        MeshRenderer[] mrs = avatar.GetComponentsInChildren<MeshRenderer>(true);
+        foreach (MeshRenderer mr in mrs)
+        {
+        }
+    }
     public void OnGUI()
     {
         avatar = (VRC.SDK3.Avatars.Components.VRCAvatarDescriptor) EditorGUILayout.ObjectField("Avatar", avatar, typeof(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor), true);
@@ -134,6 +166,10 @@ public class AvatarBrightnessChangerEditorWindow : EditorWindow
         {
             GenerateMonochromatic();
         }
+		if (GUILayout.Button("Generate AO Toggle"))
+		{
+			GenerateAOToggle();
+		}
 
     }
 }
